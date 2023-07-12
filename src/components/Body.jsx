@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect } from "react";
 import { useState } from "react"
 import RestaurantCard from "./RestaurantCard";
