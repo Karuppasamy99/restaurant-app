@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { addCartItems, removeCartItems } from '../utils/cartSlice'
 import { Link } from 'react-router-dom'
 import Shimmer, { MenuShimmer } from './Shimmer'
+import ErrorElement from './ErrorElement'
+import ScrollToTop from './TopScreen'
 
 const RestaurantMenu = () => {
     const [restaurantMenu, setRestaurantMenu] = useState([])
@@ -28,10 +30,7 @@ const RestaurantMenu = () => {
    
     
     let result = [],
-    uniqueFoodItems = []; //[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards//[1]?.card.card.itemCards;
-
-  // const menu = restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.find(x => x.card.card.title=="Recommended")
-  //   console.log(menu)
+    uniqueFoodItems = [];
 
   const customFilter = (object, result) => {
     // eslint-disable-next-line no-prototype-builtins
@@ -81,10 +80,11 @@ const RestaurantMenu = () => {
     dispatch(removeCartItems(item))
   }
 
-  if(!restaurant) return null
+  if(!restaurant) return <MenuShimmer />
 
-  return restaurantMenu?.length <= 0? <Shimmer /> : (
+  return !restaurantMenu? <ErrorElement /> : (
       <div>
+        <ScrollToTop />
           <div className="grid justify-center m-auto p-4 md:max-w-[70%] lg:max-w-[70%]">
             <div className="grid lg:grid-cols-2 gap-12 border-dotted border-b-2 p-2 sm:grid-cols-none ">
               <div className="text-center">
@@ -111,7 +111,7 @@ const RestaurantMenu = () => {
                 </ul>
               </div>
   
-              <div className="rounded-lg sm:h-full  sm:rounded-md ">
+              <div className="rounded-lg sm:h-full  sm:rounded-md flex justify-center">
                 <img className='sm:w-96 md:w-60 lg:w-60'
                   src={
                     "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
@@ -148,7 +148,7 @@ const RestaurantMenu = () => {
                             <div className="relative justify-self-end col-span-3">
                               {item?.imageId && (
                                 <img
-                                  className="sm:w-96 sm:h-96 w-[118px] rounded-md  object-cover"
+                                  className="sm:w-96 sm:h-96 md:w-[118px] md:h-[118px] lg:w-[118px] lg:h-[118px] rounded-md  object-cover"
                                   src={"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" + item?.imageId}
                                   alt="item"
                                 />

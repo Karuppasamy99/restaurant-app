@@ -43,10 +43,10 @@ const body = () => {
   return restaurantData.length ===0? <Shimmer /> : (
     <>
     <div className="h-12 flex flex-row justify-center bg-orange-200 w-full">
-    <input className="m-2 px-3 w-1/6 h-8 rounded-lg" value={searchData} onChange={(e)=> {setSearchData(e.target.value), searchRestaurantData(e.target.value,restaurantData)}} type="text" />
+    <input className="m-2 px-3 h-8 rounded-lg sm:w-1/2 lg:w-1/6" value={searchData} onChange={(e)=> {setSearchData(e.target.value), searchRestaurantData(e.target.value,restaurantData)}} type="text" />
     <button className="px-4 m-2 bg-orange-400 rounded-lg" onClick={()=> searchRestaurantData(searchData, restaurantData)}>Search</button>
     </div>
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center overflow-hidden">
         {filterRestaurantData.length ===0? <p className="m-5 p-5 font-bold">{itemsNotFound}</p> : filterRestaurantData && filterRestaurantData?.map( restaurant =>  <Link to={`restaurant/${restaurant.data.id}`} key={restaurant.data.id}><RestaurantCard  {...restaurant.data} /></Link>)}
     </div>
     </>

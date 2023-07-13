@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { clearCartItems } from "../utils/cartSlice";
+import ScrollToTop from "./TopScreen";
 
 
 function Cart() {
@@ -35,6 +36,7 @@ function Cart() {
 
   return (
     <>
+    <ScrollToTop />
     <div>
       {cartItems?.length > 0 && (
         <div className="mt-4 text-center text-lg font-bold">
@@ -55,7 +57,7 @@ function Cart() {
         </div>
       )}
       <div className="grid place-items-center">
-        <div className="pt-4">
+        <div className="p-4 md:w-96 lg:w-[500px]">
           <div className="">
             {Object.values(uniqueFoodItems).map((item, index) => {
               return (
@@ -73,7 +75,7 @@ function Cart() {
                           {item[0]?.description}
                         </p>
                       </div>
-                      <div className="">
+                      <div className="flex justify-center">
                         {item[0]?.imageId && (
                           <img
                             className="sm:w-72 rounded-md h-[96] object-cover md:w-96 lg:w-96 lg:p-4 lg:rounded-lg"

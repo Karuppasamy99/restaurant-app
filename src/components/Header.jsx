@@ -8,15 +8,15 @@ const Header = () => {
     <>
     <div className="flex  bg-orange-300 w-full h-25 p-2 justify-between sm:w-full">
         
-    <img className="h-20" src="https://tse4.mm.bing.net/th?id=OIP.50r-WoPGd_apeFIizSG_KAHaF7&pid=Api&P=0&w=300&h=300" alt="Hotel logo" />
+    <Link to={'/'}><img className="h-20" src="https://tse4.mm.bing.net/th?id=OIP.50r-WoPGd_apeFIizSG_KAHaF7&pid=Api&P=0&w=300&h=300" alt="Hotel logo" /></Link> 
     <nav>
         <ul className="flex">
-            <li className="p-2 my-4"><Link to={'/'}>Home</Link></li>
-            <li className="p-2 my-4"><Link to={'/about'}>About</Link></li>
-            <li className="p-2 my-4"><Link to={'/contact'}>Contact</Link></li>
+            <li className="p-2 my-4 underline"><Link to={'/'}>Home</Link></li>
+            <li className="p-2 my-4 underline"><Link to={'/about'}>About</Link></li>
+            <li className="p-2 my-4 underline"><Link to={'/contact'}>Contact</Link></li>
         </ul>
     </nav>
-    <button className="mx-2">Cart - {cartItems.length}</button>
+    <Link to={'/cart'}><button className="my-6 mx-2">Cart - {cartItems.length}</button></Link>
     </div>
     <Outlet />
     </>
