@@ -19,9 +19,9 @@ const body = () => {
         try{
           const response = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.701930899999999&lng=77.72807829999999&page_type=DESKTOP_WEB_LISTING');
           const data = await response.json();
-          setRestaurantData(data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
-          setFilterRestaurantData(data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
-          console.log('get data',data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
+          setRestaurantData(data.data.cards[5].card.card.gridElements?.infoWithStyle?.restaurants);
+          setFilterRestaurantData(data.data.cards[5].card.card.gridElements?.infoWithStyle?.restaurants);
+          // console.log('get data',data.data.cards);
           
           // console.log('get data',data?.cards);
         }
@@ -40,7 +40,7 @@ const body = () => {
       setFilterRestaurantData(searchRestaurant)
       console.log('list restaurant',searchRestaurant)
       }
-      if(!restaurantData) return null
+      if(!restaurantData) return <p className="text-center">This application relies on Swiggy's API to fetch restaurant data. However, due to Swiggy's occasional API updates, there might be instances when restaurant data fails to load. If you encounter such issues, kindly inform us via the provided contact form. Your feedback helps us ensure a seamless user experience.</p>
     
   return restaurantData.length ===0? <Shimmer /> : (
     <>
