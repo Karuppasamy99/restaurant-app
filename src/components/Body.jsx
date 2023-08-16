@@ -19,9 +19,11 @@ const body = () => {
         try{
           const response = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.701930899999999&lng=77.72807829999999&page_type=DESKTOP_WEB_LISTING');
           const data = await response.json();
-          setRestaurantData(data?.data?.cards[2]?.data?.data?.cards);
-          setFilterRestaurantData(data?.data?.cards[2]?.data?.data?.cards);
-          console.log('fetched data',data.data)
+          setRestaurantData(data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
+          setFilterRestaurantData(data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
+          console.log('get data',data.data.cards[3].card.card.gridElements?.infoWithStyle?.restaurants);
+          
+          // console.log('get data',data?.cards);
         }
         catch(err){
                 console.log(err);
@@ -31,7 +33,7 @@ const body = () => {
     console.log(searchData)
 
     const searchRestaurantData = (searchData, restaurantData) => {
-      const searchRestaurant = restaurantData?.filter( restaurantData => restaurantData?.data?.name?.toLowerCase().includes(searchData?.toLowerCase()))
+      const searchRestaurant = restaurantData?.filter( restaurantData => restaurantData?.info?.name?.toLowerCase().includes(searchData?.toLowerCase()))
       if(searchRestaurant.length === 0){
         setItemsNotFound(`Sorry, We couldn't find any restaurant with name '${searchData}`)
       }
@@ -47,7 +49,7 @@ const body = () => {
     <button className="px-4 m-2 bg-orange-400 rounded-lg" onClick={()=> searchRestaurantData(searchData, restaurantData)}>Search</button>
     </div>
     <div className="flex flex-wrap justify-center overflow-hidden">
-        {filterRestaurantData.length ===0? <p className="m-5 p-5 font-bold">{itemsNotFound}</p> : filterRestaurantData && filterRestaurantData?.map( restaurant =>  <Link to={`restaurant/${restaurant.data.id}`} key={restaurant.data.id}><RestaurantCard  {...restaurant.data} /></Link>)}
+        {filterRestaurantData.length ===0? <p className="m-5 p-5 font-bold">{itemsNotFound}</p> : filterRestaurantData && filterRestaurantData?.map( restaurant =>  <Link to={`restaurant/${restaurant.info.id}`} key={restaurant.info.id}><RestaurantCard  {...restaurant.info} /></Link>)}
     </div>
     </>
   )
