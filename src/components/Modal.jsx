@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
 
-const Modal = ({ closeModal }) => {
+const Modal = ({ closeModal, cors }) => {
+  console.log('cors', cors)
   return (
     <>
       <div className="fixed top-0 bg-gray-900 bg-opacity-40 left-0 right-0 z-[1055] h-full w-auto overflow-y-hidden overflow-x-hidden outline-none  ">
         <div className="pointer-events-none absolute right-7 mt-24 h-auto translate-x-[100%] transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] transform-none opacity-100 ml-4">
           <div className="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none p-2">
             <div className="p-2 font-bold border-b text-black">
-              Order Confirmation: We have received your order
+             {cors? 'Please install cors extension and turn on': 'Order Confirmation: We have received your order'} 
             </div>
             <div className="p-2 border-b">
               {" "}
               <p>
+                {cors? '': <>
                 Order Placed successfully! <br />
                 Thank you for ordering from <span className="text-orange-300">Falcon</span>{" "}
                 <span className="text-lg">&#128588;</span>
+                </>}
+                
               </p>
             </div>
             <div>

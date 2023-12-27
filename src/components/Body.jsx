@@ -4,12 +4,15 @@ import { useState } from "react"
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const body = () => {
     const [restaurantData, setRestaurantData] = useState([]);
     const [filterRestaurantData, setFilterRestaurantData] = useState([]);
     const [searchData, setSearchData] = useState('');
     const [itemsNotFound, setItemsNotFound] = useState('');
+    const [cors, setCors] = useState(true)
+
     
     useEffect(()=>{
         getRestaurantData();
@@ -17,20 +20,21 @@ const body = () => {
 
     async function getRestaurantData(){
         try{
-          const response = await fetch('https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.701930899999999&lng=77.72807829999999&page_type=DESKTOP_WEB_LISTING');
+          const response = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.701930899999999&lng=77.72807829999999&page_type=DESKTOP_WEB_LISTING');
           const data = await response.json();
-          setRestaurantData(data.data.cards[5].card.card.gridElements?.infoWithStyle?.restaurants);
-          setFilterRestaurantData(data.data.cards[5].card.card.gridElements?.infoWithStyle?.restaurants);
-          // console.log('get data',data.data.cards);
+          setRestaurantData(data.data.cards[4].card.card.gridElements?.infoWithStyle?.restaurants);
+          setFilterRestaurantData(data.data.cards[4].card.card.gridElements?.infoWithStyle?.restaurants);
+          console.log('get data',data.data);
           
           // console.log('get data',data?.cards);
+
         }
         catch(err){
                 console.log(err);
               }
         
       }
-    console.log(searchData)
+    console.log(restaurantData)
 
     const searchRestaurantData = (searchData, restaurantData) => {
       const searchRestaurant = restaurantData?.filter( restaurantData => restaurantData?.info?.name?.toLowerCase().includes(searchData?.toLowerCase()))
@@ -40,6 +44,7 @@ const body = () => {
       setFilterRestaurantData(searchRestaurant)
       console.log('list restaurant',searchRestaurant)
       }
+      if(cors) return <Modal closeModal={setCors} cors={cors} />
       if(!restaurantData) return <p className="text-center">This application relies on Swiggy's API to fetch restaurant data. However, due to Swiggy's occasional API updates, there might be instances when restaurant data fails to load. If you encounter such issues, kindly inform us via the provided contact form. Your feedback helps us ensure a seamless user experience.</p>
     
   return restaurantData.length ===0? <Shimmer /> : (

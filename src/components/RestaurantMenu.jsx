@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { addCartItems, removeCartItems } from '../utils/cartSlice'
 import { Link } from 'react-router-dom'
-import Shimmer, { MenuShimmer } from './Shimmer'
+import  { MenuShimmer } from './Shimmer'
 import ErrorElement from './ErrorElement'
 import ScrollToTop from './TopScreen'
 
@@ -16,7 +16,7 @@ const RestaurantMenu = () => {
     },[])
 
     const getRestaurantMenu = async() => {
-        const response = await fetch(`https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.5270362&lng=77.13593279999999&restaurantId=${id}`)
+        const response = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.5270362&lng=77.13593279999999&restaurantId=${id}`)
         const data = await response.json();
         setRestaurantMenu(data)
     }
